@@ -1,0 +1,6 @@
+t=0:0.01:4;
+s=NaN(length(t));
+for i=t(1
+    s(i)=kwn_spline(t,[0,1,2,3,4],[0,1,0,-1,0],[0,-3,0,3,0]);
+end
+plot(t,s)

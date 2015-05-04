@@ -1,0 +1,3 @@
+function[Fx]=Funx(i,j,add,pos)
+Fx=(k(j)*(positioni(a-1,2,add,i,pos)-positionj(a-1,2,add,j,pos))/(((positioni(a-1,1,add,i,pos)-positionj(a-1,1,add,j,pos))^2)+((positioni(a-1,2,add,i,pos)-positionj(a-1,2,add,j,pos))^2)));
+end

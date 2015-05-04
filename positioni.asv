@@ -1,0 +1,3 @@
+function[posi]=positioni(t,xy,add,i,pos)
+posi=pos(t,xy*i)+add;
+end

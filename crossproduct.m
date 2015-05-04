@@ -1,0 +1,11 @@
+function z=crossproduct(x,y)
+a=length(x);
+b=length(y);
+if a~=3 && b~=3
+    error('please enter two vectors from R3')
+    return
+end
+z(1,1)=((x(2))*(y(3)))-((x(3))*(y(2)));
+z(2,1)=((x(3))*(y(1)))-((x(1))*(y(3)));
+z(3,1)=((x(1))*(y(2)))-((x(2))*(y(1)));
+end

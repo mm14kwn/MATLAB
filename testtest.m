@@ -1,0 +1,14 @@
+N=4;
+a=0;
+b=1;
+h=abs(b-a)/N
+e = ones(N+1,1);
+A = spdiags([e -2*e e], -1:1, N+1, N+1)
+A(N+1,N+1)=-1;
+C=-(pi^2)*sin(pi*(a+h:h:b));
+C=C'
+c=(1/2)*-(pi^2)*sin(pi*(b));
+C=[C;c]
+D=(-h^2)*C
+u=A\D
+u=[0;u]

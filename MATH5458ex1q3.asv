@@ -1,0 +1,19 @@
+h=0.01;
+L=10;
+D=10;
+U=1;
+X=0:h:L;
+Y=0:h:L;
+Z=0:-h:-D;
+Z2=Z';
+size(Y)
+size(Z)
+size(Z2)
+u=zeros(L/h,D/h);
+for i=1:(L/h)+1
+    for j=1:D/h
+        u(i,j)=U*sin(pi*Y(i)/L)*cos((pi*Z(j))/(2*D));
+    end
+end
+size(u)
+contour(Y,Z,u)
