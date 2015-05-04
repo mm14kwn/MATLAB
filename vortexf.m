@@ -4,6 +4,6 @@ jmat=[1:1:N];
 jmat(i)=[];
 for j=jmat
     rr=((x(i)-x(j))^2)+((y(i)-y(j))^2);
-    fi=fi-(k(j)*(y(i)-y(j))/rr);
+    fi=fi+(k(j)*(y(j)-y(i))/rr);
 end
 end

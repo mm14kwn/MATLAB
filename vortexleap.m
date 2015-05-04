@@ -72,3 +72,4 @@ axis([0 inf -maxy maxy])
 hold off
 name=input('file name? ');
 print('-dpng',[name,'.png']);
+matlab2tikz('vortex', 'height', '\figureheight', 'width', '\figurewidth');
