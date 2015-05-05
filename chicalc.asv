@@ -1,0 +1,14 @@
+clear chi
+for i=1:T
+    chia(i)=(k(1)/(2*pi))*log(y(i,1)*y(i,3)*(((x(i,3)-x(i,1))^2 + (y(i,1)+y(i,3))^2)/((x(i,3)-x(i,1))^2 + (y(i,3)-y(i,1))^2)));
+    chib(i)=(k(2)/(2*pi))*log(y(i,2)*y(i,4)*(((x(i,4)-x(i,2))^2 + (y(i,2)+y(i,4))^2)/((x(i,4)-x(i,2))^2 + (y(i,4)-y(i,2))^2)));
+end
+chitot=chia+chib;
+plot(chia,'b')
+hold on
+plot(chib,'r')
+plot(chitot
+title('plot of \chi for stable vortex interaction simulation')
+xlabel('time')
+ylabel('\chi')
+hold off
