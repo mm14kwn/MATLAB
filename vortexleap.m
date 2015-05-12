@@ -57,19 +57,19 @@ for a=2:T
 end
 clf
 %for viewing evolution of tracks
-%multicomet(x,y)
+multicomet(x,y)
 %for viewing static image of tracks
-colourmap=['b','r','g','c','m','y','k'];
-maxy=1.5*max(max(abs(y)));
+%colourmap=['b','r','g','c','m','y','k'];
+%maxy=1.5*max(max(abs(y)));
 hold on
-for i=1:N
-    plot(x(:,i),y(:,i),colourmap(i))
-end
+%for i=1:N
+ %   plot(x(:,i),y(:,i),colourmap(i))
+%end
 xlabel('x');
 ylabel('y');
 title([num2str(T),' time steps, step size = ',num2str(h)]);
-axis([0 inf -maxy maxy])
-hold off
-name=input('file name? ');
-print('-dpng',[name,'.png']);
-matlab2tikz('vortex', 'height', '\figureheight', 'width', '\figurewidth');
+%axis([0 inf -maxy maxy])
+%hold off
+%name=input('file name? ');
+%print('-dpng',[name,'.png']);
+%matlab2tikz('vortex', 'height', '\figureheight', 'width', '\figurewidth');
