@@ -121,7 +121,7 @@ print(['E:\Google Drive\Lecture Notes\Leeds Semester 2\MATH5458 Geophysical Flui
 clf
 plot(eta(M/2,1:end));
 hold on
-plot(0:1:N,eta(M/2,1)*exp(-fprime*(0:1:N)/100),'--')
+plot(0:1:N,eta(M/2,N)*exp(-fprime*(0:1:N)/100),'--')
 xlabel('x');
 ylabel('\eta')
 hold off
