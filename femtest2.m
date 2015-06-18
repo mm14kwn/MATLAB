@@ -1,9 +1,9 @@
 clear all
-gridspacex=1;
-gridspacey=1;
-hx=0.1;
-hy=0.1;
-Nx=100;
+gridspacex=10;
+gridspacey=10;
+hx=1;
+hy=1;
+Nx=400;
 Ny=100;
 xi=-Nx/2:gridspacex:Nx/2;
 yi=-Ny/2:gridspacey:Ny/2;
@@ -47,4 +47,7 @@ for i=1:1+Nx/hx
         nodes{i,j}=[x(i),y(j);x1,y1;x2,y2;x3,y3];
     end
 end
-surf(real(u))
+contour(u)
+print('-dpdf','femtestu.pdf')
+contour(f)
+print('-dpdf','femtestf.pdf')
