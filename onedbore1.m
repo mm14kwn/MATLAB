@@ -1,3 +1,4 @@
+clear all
 N=input('N=');
 dx=1/N;
 dt=0.1*dx;
@@ -9,7 +10,7 @@ tau=input('linear damping time=');
 tidal_period=input('tidal period =');
 t=0;
 T=input('max time?');
-etaend=0;
+etat=NaN(T/dt,N);
 k=1;
 while t<T
 for i=2:N;
@@ -23,5 +24,5 @@ end
 eta=eta-(dt*ux);
 t=t+dt
 k=k+1;
-etat(k)=eta;
+etat(k,:)=eta;
 end

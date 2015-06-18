@@ -1,0 +1,51 @@
+clear all
+gridspacex=10;
+gridspacey=10;
+hx=1;
+hy=1;
+Nx=100;
+Ny=100;
+xi=0:gridspacex:Nx;
+yi=0:gridspacey:Ny;
+x=0:hx:Nx;
+y=0:hy:Ny;
+ug=NaN(length(xi),length(yi));
+u=NaN(length(x),length(y));
+err=NaN(length(x),length(y));
+nodes=cell(length(x),length(y));
+for i=1:1+Nx/hx
+    for j=1:1+Ny/hy
+        for k=1:Nx/gridspacex
+            if (x(i)<xi(k+1))&&(x(i)>=xi(k))
+                xnode=k;
+                break
+            end
+        end
+        for l=1:Ny/gridspacey
+            if y(j)<(yi(l+1))&&(y(j)>=yi(l))
+                ynode=l;
+                break
+            end
+        end
+        if (x(i)/gridspacex)>=(y(j)/gridspacey)
+            uplow=1;
+        else
+            uplow=0;
+        end
+        x1=xi(xnode);
+        x2=xi(xnode+1);
+        x3=xi(xnode+uplow);
+        y1=yi(ynode);
+        y2=yi(ynode+1-uplow);
+        y3=yi(ynode+1);
+        [Na,Nb,Nc]=triN2(x(i),y(j),x1,x2,x3,y1,y2,y3);
+        N1(i,j)=Na;
+        N2(i,j)=Nb;
+        N3(i,j)=Nc;
+        u(i,j)=Na*func(x1,y1)+Nb*func(x2,y2)+Nc*func(x3,y3);
+        err(i,j)=u(i,j)-func(x(i),y(j));
+        perr(
+        nodes{i,j}=[x(i),y(j);x1,y1;x2,y2;x3,y3];
+    end
+end
+surf(u)
