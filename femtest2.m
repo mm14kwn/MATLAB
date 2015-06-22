@@ -51,4 +51,3 @@ contour(u)
 print('-dpdf','femtestu.pdf')
 contour(f)
 print('-dpdf','femtestf.pdf')
-exit
