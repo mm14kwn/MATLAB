@@ -41,7 +41,6 @@ Gv(i)=Gv(i)+Ghat(alpha,V(k),p(1,t(1,k)),p(2,t(1,k)),p(1,t(2,k)),p(2,t(2,k)),p(1,
 Gh(i)=Gh(i)+Ghat(alpha,H(k),p(1,t(1,k)),p(2,t(1,k)),p(1,t(2,k)),p(2,t(2,k)),p(1,t(3,k)),p(2,t(3,k)));
 end
 end
-end
 AA=M-(tau^2)*(Ax*Minv*Ax+Ay*Minv*Ay);
 BB=-tau*(Ax*Minv*Gu-Ay*Minv*Gv);
 BBB=Gh-BB;
