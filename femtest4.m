@@ -29,7 +29,7 @@ end
 end
 end
 Minv=inv(M);
-for t=2:Nt
+for time=2:Nt
 Gu=zeros(1,size(t,2));
 Gv=zeros(1,size(t,2));
 Gh=zeros(1,size(t,2));
@@ -49,9 +49,9 @@ BBu=-tau*Ax*Minv*Ax*hn+Ax*Minv*Gu;
 BBv=-tau*Ay*Minv*Ay*hn+Ay*Minv*Gv;
 un=Ax\BBu;
 vn=Ay\BBv;
-ustore(t,:)=un;
-vstore(t,:)=vn;
-hstore(t,:)=hn;
+ustore(time,:)=un;
+vstore(time,:)=vn;
+hstore(time,:)=hn;
 U=un;
 V=vn;
 h=hn;
