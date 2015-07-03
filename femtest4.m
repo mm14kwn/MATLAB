@@ -2,6 +2,7 @@ clear all
 poly1=[3,4,0,100,100,0,0,0,10,10];
 d1=decsg(poly1);
 [p,e,t]=initmesh(d1);
+[in,on]=inpolygon(p(1,:),p(2,:),xbpts,ybpts)
 Ax=zeros(size(t,2),size(t,2));
 Ay=zeros(size(t,2),size(t,2));
 M=zeros(size(t,2),size(t,2));
@@ -44,7 +45,7 @@ end
 AA=M-(tau^2)*(Ax*Minv*Ax+Ay*Minv*Ay);
 BB=-tau*(Ax*Minv*Gu-Ay*Minv*Gv);
 BBB=Gh-BB;
-hn=AA\BBB;
+hn=AA\BBB
 BBu=-tau*Ax*Minv*Ax*hn+Ax*Minv*Gu;
 BBv=-tau*Ay*Minv*Ay*hn+Ay*Minv*Gv;
 un=Ax\BBu;
