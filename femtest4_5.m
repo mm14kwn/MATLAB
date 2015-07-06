@@ -83,12 +83,12 @@ end
 end
 tnew(4,:)=1;
 enew([3,4,5,6,7],:)=e([3,4,5,6,7],:);
-%for i=1:max(max(t))
-%	h(i)=sin((pi*p(1,i))/(max(xbpts)))*cos((pi*p(2,i))/(2*max(ybpts)));
-%		 end
-h=zeros(max(max(t)),1);
+for i=1:max(max(t))
+	h(i)=sin((2*pi*p(1,i))/(max(xbpts)));
+		 end
+%h=zeros(max(max(t)),1);
 		 tau=input('tau=');
-%h=transpose(h);
+h=transpose(h);
 PSI=[U;V;h];
   psistore=zeros(length(PSI),1+Nt/tau);
 psistore(:,1)=PSI;
@@ -137,6 +137,7 @@ AAA(j,i)=0;
 end
 AAA(i,i)=1;
 end
+if right(i)==1
 	for j=1:length(PSI)/3
 G(i)=G(i)-AAA(i,j)*Urbound(i);
 AAA(i,j)=0;
