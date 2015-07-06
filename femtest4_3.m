@@ -1,9 +1,9 @@
 clear all
-xbpts=[0;100;100;0];
-ybpts=[0;0;100;100];
+xbpts=[0;200;200;0];
+ybpts=[-50;-50;50;50];
 poly1=[3;4;xbpts;ybpts];
 d1=decsg(poly1);
-[p,e,t]=initmesh(d1,'Hmax',5);
+[p,e,t]=initmesh(d1);
 [p,e,t]=refinemesh(d1,p,e,t);
 [in,on]=inpolygon(p(1,:),p(2,:),xbpts,ybpts);
 xa=min(xbpts);
@@ -37,11 +37,14 @@ Ax=zeros(size(p,2),size(p,2));
 Ay=zeros(size(p,2),size(p,2));
 M=zeros(size(p,2),size(p,2));
 Nt=input('Input Nt=');
-Uriver=1;
+Uriver=0;
 U=Uriver*ones(max(max(t)),1);
 V=zeros(max(max(t)),1);
-h=zeros(max(max(t)),1);
-tau=1;
+for i=1:max(max(t))
+	h(i)=sin((pi*p(1,i))/(max(xbpts)))*cos((pi*p(2,i))/(2*max(ybpts)));
+		 end
+%h=zeros(max(max(t)),1);
+		 tau=input('tau=');
 ustore=NaN(length(U),Nt);
 vstore=NaN(length(V),Nt);
 hstore=NaN(length(h),Nt);
@@ -78,38 +81,43 @@ BB=-tau*(Ax*Minv*Gu-Ay*Minv*Gv);
 BBB=Gh-BB;
 %for i=1:length(h)
 %	if right(i)==1
-%	BBB(i)=h0*sin(omega*time);
+%	BBB(i)=0;
 %AA(i,:)=0;
 %AA(i,1)=1;
 %end
+%if left(i)==1
+%  BBB(i)=0;
+%AA(i,:)=0;
+%AA(i,i)=1;
+%end
 %end
 hn=AA\BBB;
-BBu=-tau*Ax*hn+Gu;
-BBv=-tau*Ay*hn+Gv;
+BBu=-9.81*tau*Ax*hn+Gu;
+BBv=-9.81*tau*Ay*hn+Gv;
 Mu=M;
 Mv=M;
-for i=1:length(U)
-	if left(i)==1
-	BBu(i)=Uriver;
-Mu(i,:)=0;
-Mu(i,i)=1;
-end
-if right(i)==1
-  BBu(i)=u0*sin(omega*time);
-Mu(i,:)=0;
-Mu(i,i)=1;
-end
-if top(i)==1
-  BBv(i)=0;
-Mv(i,:)=0;
-Mv(i,i)=1;
-end
-if bottom(i)==1
-  BBv(i)=0;
-Mv(i,:)=0;
-Mv(i,i)=1;
-end
-end
+%for i=1:length(U)
+%	if left(i)==1
+%	BBu(i)=0;
+%Mu(i,:)=0;
+%Mu(i,i)=1;
+%end
+%if right(i)==1
+%  BBu(i)=0;
+%Mu(i,:)=0;
+%Mu(i,i)=1;
+%end
+%if top(i)==1
+%  BBv(i)=0;
+%Mv(i,:)=0;
+%Mv(i,i)=1;
+%end
+%if bottom(i)==1
+%  BBv(i)=0;
+%Mv(i,:)=0;
+%Mv(i,i)=1;
+%end
+%end
 un=Mu\BBu;
 vn=Mv\BBv;
 ustore(:,time)=un;
