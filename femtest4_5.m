@@ -39,14 +39,14 @@ Ay=zeros(NNodes);
 M=zeros(NNodes);
 Nt=input('Input Nt=');
 Uriver=1;
-Uin=Uriver*ones(NNodes,1);
-Vin=zeros(NNodes,1);
-pint=NaN(NNodes,1);
-pbound=NaN(sum(on));
-pnew=NaN(sum(in));
+U=Uriver*ones(NNodes,1);
+V=zeros(NNodes,1);
+pint=NaN(2,NNodes);
+pbound=NaN(2,sum(on));
+pnew=NaN(2,sum(in));
 tnew=NaN(size(t));
-orig=NaN(size(pint));
-orig2=NaN(size(pbound));
+orig=NaN(NNodes,1);
+orig2=NaN(sum(on),1);
 l=1;
 q=1;
 for k=1:size(p,2)
@@ -60,16 +60,24 @@ orig2(q)=k;
 q=q+1;
 end
 end
-pnew=[pint;pbound];
+pnew=[pint,pbound];
 original=[orig;orig2];
-for k=1:sum(in)
-for i=1:size(t,1)
+for i=1:sum(in)
+	originv(original(i))=i;
+end
+originv=transpose(originv);
+for i=1:3
 for j=1:size(t,2)
-if t(i,j)=k
-tnew(i,j)=orig(k);
+	tnew(i,j)=originv(t(i,j));
 end
 end
+for i=[1,2]
+	for j=1:size(e,2);
+  enew(i,j)=originv(e(i,j));
 end
+end
+tnew(4,:)=1;
+enew([3,4,5,6,7],:)=e([3,4,5,6,7],:);
 %for i=1:max(max(t))
 %	h(i)=sin((pi*p(1,i))/(max(xbpts)))*cos((pi*p(2,i))/(2*max(ybpts)));
 %		 end
@@ -81,7 +89,6 @@ PSI=[U;V;h];
 psistore(:,1)=PSI;
 for k=1:size(t,2)
 	circ(k)=circtri(p(1,t(1,k)),p(2,t(1,k)),p(1,t(2,k)),p(2,t(2,k)),p(1,t(3,k)),p(2,t(3,k)));
-if on(k)==0
 for alpha=1:3
 i=t(alpha,k);
 for beta=1:3
@@ -91,7 +98,6 @@ Ax(i,j)=Ax(i,j)+ahatx(alpha,beta,p(1,t(1,k)),p(2,t(1,k)),p(1,t(2,k)),p(2,t(2,k))
 Ay(i,j)=Ay(i,j)+ahaty(alpha,beta,p(1,t(1,k)),p(2,t(1,k)),p(1,t(2,k)),p(2,t(2,k)),p(1,t(3,k)),p(2,t(3,k)));
 end
 end
-else
 
 end
 AAx=blkdiag(Ax,Ax,Ax);
