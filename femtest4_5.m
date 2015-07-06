@@ -33,14 +33,43 @@ if p(2,i)==yb
 end
 end
 end
-Ax=zeros(size(p,2),size(p,2));
-Ay=zeros(size(p,2),size(p,2));
-M=zeros(size(p,2),size(p,2));
+NNodes=sum(in)-sum(on);
+Ax=zeros(NNodes);
+Ay=zeros(NNodes);
+M=zeros(NNodes);
 Nt=input('Input Nt=');
 Uriver=1;
-U=Uriver*ones(max(max(t)),1);
-V=zeros(max(max(t)),1);
-
+Uin=Uriver*ones(NNodes,1);
+Vin=zeros(NNodes,1);
+pint=NaN(NNodes,1);
+pbound=NaN(sum(on));
+pnew=NaN(sum(in));
+tnew=NaN(size(t));
+orig=NaN(size(pint));
+orig2=NaN(size(pbound));
+l=1;
+q=1;
+for k=1:size(p,2)
+if on(k)==0
+pint(:,l)=p(:,k);
+orig(l)=k;
+l=l+1;
+else
+pbound(:,q)=p(:,k);
+orig2(q)=k;
+q=q+1;
+end
+end
+pnew=[pint;pbound];
+original=[orig;orig2];
+for k=1:sum(in)
+for i=1:size(t,1)
+for j=1:size(t,2)
+if t(i,j)=k
+tnew(i,j)=orig(k);
+end
+end
+end
 %for i=1:max(max(t))
 %	h(i)=sin((pi*p(1,i))/(max(xbpts)))*cos((pi*p(2,i))/(2*max(ybpts)));
 %		 end
@@ -52,6 +81,7 @@ PSI=[U;V;h];
 psistore(:,1)=PSI;
 for k=1:size(t,2)
 	circ(k)=circtri(p(1,t(1,k)),p(2,t(1,k)),p(1,t(2,k)),p(2,t(2,k)),p(1,t(3,k)),p(2,t(3,k)));
+if on(k)==0
 for alpha=1:3
 i=t(alpha,k);
 for beta=1:3
@@ -61,6 +91,8 @@ Ax(i,j)=Ax(i,j)+ahatx(alpha,beta,p(1,t(1,k)),p(2,t(1,k)),p(1,t(2,k)),p(2,t(2,k))
 Ay(i,j)=Ay(i,j)+ahaty(alpha,beta,p(1,t(1,k)),p(2,t(1,k)),p(1,t(2,k)),p(2,t(2,k)),p(1,t(3,k)),p(2,t(3,k)));
 end
 end
+else
+
 end
 AAx=blkdiag(Ax,Ax,Ax);
 AAy=blkdiag(Ay,Ay,Ay);
