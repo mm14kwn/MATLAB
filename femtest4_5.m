@@ -33,14 +33,19 @@ if p(2,i)==yb
 end
 end
 end
+Nn=sum(in);
 NNodes=sum(in)-sum(on);
-Ax=zeros(NNodes);
-Ay=zeros(NNodes);
-M=zeros(NNodes);
+Ax=zeros(Nn);
+Ay=zeros(Nn);
+M=zeros(Nn);
 Nt=input('Input Nt=');
-Uriver=1;
-U=Uriver*ones(NNodes,1);
-V=zeros(NNodes,1);
+Uriver=0;
+U=Uriver*ones(Nn,1);
+V=zeros(Nn,1);
+Ulbound=Uriver*ones(Nn,1);
+Urbound=zeros(Nn,1);
+Vtbound=zeros(Nn,1);
+Vbbound=zeros(Nn,1);
 pint=NaN(2,NNodes);
 pbound=NaN(2,sum(on));
 pnew=NaN(2,sum(in));
@@ -122,30 +127,40 @@ end
 G=[Gu;Gv;Gh];
 
 
-
 AAA=MM+tau*AAx*K1+tau*AAy*K2;
-%for i=1:length(on)
-%	if left(i)==1
-%	G(i)=1;
-%AAA(i,:)=0;
-%AAA(i,i)=1;
-%end
-%if right(i)==1
-%	G(i)=1;
-%AAA(i,:)=0;
-%AAA(i,i)=1;
-%end
-%if top(i)==1
-%	G((length(PSI)/3)+i)=0;
-%AAA((length(PSI)/3)+i,:)=0;
-%AAA((length(PSI)/3)+i,(length(PSI)/3)+i)=0;
-%end
-%if bottom(i)==1;
-%G((length(PSI)/3)+i)=0;
-%AAA((length(PSI)/3)+i,:)=0;
-%AAA((length(PSI)/3)+i,(length(PSI)/3)+i)=0;
-%end
-%end
+for i=1:length(on)
+	if left(i)==1
+	for j=1:length(PSI)/3
+G(i)=G(i)-AAA(i,j)*Ulbound(i);
+AAA(i,j)=0;
+AAA(j,i)=0;
+end
+AAA(i,i)=1;
+end
+	for j=1:length(PSI)/3
+G(i)=G(i)-AAA(i,j)*Urbound(i);
+AAA(i,j)=0;
+AAA(j,i)=0;
+end
+AAA(i,i)=1;
+end
+if top(i)==1
+	for j=1:length(PSI)/3
+G((length(PSI)/3)+i)=G((length(PSI)/3)+i)-AAA((length(PSI)/3)+i,(length(PSI)/3)+j)*Vtbound(i);
+AAA((length(PSI)/3)+i,(length(PSI)/3)+j)=0;
+AAA((length(PSI)/3)+j,(length(PSI)/3)+i)=0;
+end
+AAA(i,i)=1;
+end
+if bottom(i)==1;
+for j=1:length(PSI)/3
+G((length(PSI)/3)+i)=G((length(PSI)/3)+i)-AAA((length(PSI)/3)+i,(length(PSI)/3)+j)*Vbbound(i);
+AAA((length(PSI)/3)+i,(length(PSI)/3)+j)=0;
+AAA((length(PSI)/3)+j,(length(PSI)/3)+i)=0;
+end
+AAA(i,i)=1;
+end
+end
 PSIn=AAA\G;
 psistore(:,time)=PSIn;
 U=PSIn(1:length(PSIn)/3);
