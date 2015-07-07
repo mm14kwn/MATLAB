@@ -84,8 +84,9 @@ end
 tnew(4,:)=1;
 enew([3,4,5,6,7],:)=e([3,4,5,6,7],:);
 for i=1:max(max(t))
-	h(i)=sin((2*pi*p(1,i))/(max(xbpts)));
-		 end
+	h(i)=cos((2*pi*p(1,i))/(max(xbpts)));
+	U(i)=(2/max(xbpts))*pi*9.81*sin((2*pi*p(1,i))/(max(xbpts)));
+ end
 %h=zeros(max(max(t)),1);
 		 tau=input('tau=');
 h=transpose(h);
