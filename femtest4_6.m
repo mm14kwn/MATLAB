@@ -3,8 +3,8 @@ xbpts=[0;200;200;0];
 ybpts=[-50;-50;50;50];
 poly1=[3;4;xbpts;ybpts];
 d1=decsg(poly1);
-[p,e,t]=initmesh(d1,'Hmax',50);
-%[p,e,t]=refinemesh(d1,p,e,t);
+[p,e,t]=initmesh(d1);
+[p,e,t]=refinemesh(d1,p,e,t);
 [in,on]=inpolygon(p(1,:),p(2,:),xbpts,ybpts);
 xa=min(xbpts);
 xb=max(xbpts);
@@ -85,7 +85,7 @@ tnew(4,:)=1;
 enew([3,4,5,6,7],:)=e([3,4,5,6,7],:);
 for i=1:max(max(t))
 	h(i)=cos((2*pi*p(1,i))/(max(xbpts)));
-	U(i)=(2/max(xbpts))*pi*9.81*sin((2*pi*p(1,i))/(max(xbpts)));
+	%U(i)=(2/max(xbpts))*pi*9.81*sin((2*pi*p(1,i))/(max(xbpts)));
  end
 %h=zeros(max(max(t)),1);
 		 tau=input('tau=');
@@ -182,3 +182,27 @@ end
 ustore=psistore(1:length(PSIn)/3,:);
 vstore=psistore(1+length(PSIn)/3:2*length(PSIn)/3,:);
 hstore=psistore(1+2*length(PSIn)/3:length(PSIn),:);
+symmAAA=zeros(size(AAA2));
+for i=2:size(AAA2,1)
+	for j=1:i
+		if issymmetric(AAA2(j:i,j:i))==1
+		symmAAA(j,i)=1;
+end
+end
+end
+symmAy=zeros(size(Ay));
+for i=2:size(Ay,1)
+        for j=1:i
+                if issymmetric(Ay(j:i,j:i))==1
+                symmAy(j,i)=1;
+end
+end
+end
+symmAx=zeros(size(Ax));
+for i=2:size(Ax,1)
+        for j=1:i
+                if issymmetric(Ax(j:i,j:i))==1
+                symmAx(j,i)=1;
+end
+end
+end
