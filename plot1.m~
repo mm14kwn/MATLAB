@@ -1,0 +1,6 @@
+function plot1(p,e,t,ustore,vstore,hstore,ti)
+  pdeplot(p,e,t,'zdata',hstore(:,ti),'xydata',[ustore(:,ti),vstore(:,ti)],'contour','on')
+hold on
+  title(int2str(ti))
+hold off
+end
